@@ -1,0 +1,7 @@
+{
+  "APP_NAME": "all about clubs",
+  "MILLION": "{value} milion",
+  "FOOTBALL_CLUB_INFO": {
+    "VICTORY_INFO": "{club} has been able to achieve {titles} victories at European level so far."
+  }
+}

@@ -1,66 +1,45 @@
+import 'package:aaa_hiring/decoration/my_colors.dart';
+import 'package:aaa_hiring/screens/football_clubs_screen.dart';
+import 'package:aaa_hiring/services/languages_service.dart';
+import 'package:aaa_hiring/widgets/stateful_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
-void main() {
-  runApp(const MyApp());
+import 'package:easy_localization/easy_localization.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  //runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+        supportedLocales: LanguageService.supportedLanguages.map((lang) => Locale(lang)).toList(),
+        path: 'assets/translations',
+        fallbackLocale: const Locale(LanguageService.defaultLanguage),
+        child: const MyApp()
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return StatefulWrapper(
+      onInit: () {
+        // context.setLocale(Locale(LanguageService.getLang(ui.window.locale.languageCode))); TODO Remove me
+      },
+      child: MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        title: 'AAA Hiring',
+        theme: ThemeData(
+          primarySwatch: primaryColor,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        home: const FootballClubsScreen(),
       ),
     );
   }

@@ -1,0 +1,7 @@
+{
+  "APP_NAME": "all about clubs",
+  "MILLION": "{value} miliony",
+  "FOOTBALL_CLUB_INFO": {
+    "VICTORY_INFO": "{club} do tej pory osiągnął {titles} zwycięstw na poziomie europejskim."
+  }
+}
